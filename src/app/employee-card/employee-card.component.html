@@ -1,0 +1,30 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-4 mb-4" *ngFor="let employee of employees">
+      <div class="card" style="cursor:pointer;" [style.backgroundColor]="findColor(employee.jobTitleName)" >
+        <div class="card-body" (click)="openPopup(employee)">
+          <div class="card-title">
+          <h5>Employee: {{ employee.preferredFullName }} </h5>
+          </div>
+          <div class="card-text">
+            <p>Job Title: <b>{{ employee.jobTitleName }}</b></p>
+            <p>Email: <b>{{ employee.emailAddress }}</b></p>
+          </div>
+        </div>
+        <div class="card-footer">
+        <button class="btn btn-danger float-end" (click)="showDeleteConfirmation(employee)">Delete</button>
+
+        </div>
+      </div>
+
+    </div>
+    <app-confirm-modal *ngIf="displayDeleteConfirmation" [title]="deleteConfirmationTitle" [message]="deleteConfirmationMessage"
+    [id]="employeeIdToDelete"
+    [display]="displayDeleteConfirmation"  (closeEvent)="closeDeleteConfirmation()" (confirmEvent)="confirmDeleteConfirmation($event)"
+     ></app-confirm-modal>
+
+    <app-employee-modal *ngIf="employeeDetailToDispaly" [employee]="employeeDetailToDispaly" [displayStyle]="modalDisplayStyle"
+    (modalClosed)="closePopup()"></app-employee-modal>
+  </div>
+</div>
+
